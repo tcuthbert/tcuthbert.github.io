@@ -23,6 +23,26 @@
     });
     
     new WOW().init();
+
+	$('#contact-form').submit( function(event) {
+		$.ajax({
+			url: "//formspree.io/tcuthbert90@gmail.com", 
+			method: "POST",
+			data: $(this).serialize(),
+			dataType: "json",
+			beforeSend: function() {
+				$('#contact-form').append('<div class="alert alert--loading">Sending message…</div>');
+			},
+			success: function(data) {
+				$('#contact-form').find('.alert--loading').hide();
+				$('#contact-form').append('<div class="alert alert--success">Message sent!</div>');
+			},
+			error: function(err) {
+				$('#contact-form').find('.alert--loading').hide();
+				$('#contact-form').append('<div class="alert alert--error">Ops, there was an error.</div>');
+			}
+		});
+	});
     
     $('a.page-scroll').bind('click', function(event) {
         var $ele = $(this);
