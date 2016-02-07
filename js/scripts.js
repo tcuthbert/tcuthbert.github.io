@@ -25,6 +25,7 @@
     new WOW().init();
 
 	$('#contact-form').submit( function(event) {
+		event.preventDefault()
 		$.ajax({
 			url: "//formspree.io/tcuthbert90@gmail.com", 
 			method: "POST",
