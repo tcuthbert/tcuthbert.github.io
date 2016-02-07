@@ -283,12 +283,14 @@ header .header-content .inner p {
 }
 
 /* Portrait and Landscape */
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 480px)
-  and (-webkit-min-device-pixel-ratio: 2) {
+@media only screen {
 	#avatar img {
-		display: none;
+		height: 120px;
+		width: auto;
+		border-radius: 50%; // full circular image
+		box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+		-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+		-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 	}
 }
 
