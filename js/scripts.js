@@ -27,7 +27,7 @@
 	$('#contact-form').submit( function(event) {
 		event.preventDefault();
 		$.ajax({
-			url: "//formspree.io/tcuthbert90@gmail.com", 
+			url: "//formspree.io/info@tcuthbert.net", 
 			method: "POST",
 			data: $(this).serialize(),
 			dataType: "json",
