@@ -313,21 +313,21 @@ header .header-content .inner p {
 		color: #9c27b0;
 }
 
+
 .outline-skills {
 		padding: 0;
 	  list-style-type: none;
-		text-align: center;
+		display: table;
 }
 
 .multi-list-header {
-	  margin-left: 3em;
+	  margin-left: 12em;
 }
 
 .multi-list {
 		padding: 0;
 	  list-style-type: none;
-	  margin-left: 5em;
-		text-align: left;
+		display: table;
 }
 
 footer {
