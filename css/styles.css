@@ -331,7 +331,7 @@ footer {
     background-color:#2d2d2d;
 }
 
-@media(min-width:384px) {
+@media(max-width:384px) {
 		.multi-list-header {
 				margin-left: 2em;
 		}
