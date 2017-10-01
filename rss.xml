@@ -18,7 +18,7 @@
 
 <h1 id="introduction">Introduction</h1>
 <p>2018 is the year my CCNP certification is set to expire. I have given myself the challenge to recertify and take this opportunity to blog about the technology fundamentals. I hope my notes in this blog series help others taking the exam in the future!</p>
-<p>The series is still a WIP. I will be making incremental updates live as I am always taking the opportunity to test my static blog system.</p>
+<p>The series is still a WIP. I will be making incremental updates live as I am taking the opportunity to test my static blog system.</p>
 <h1 id="outline">Outline</h1>
 <ol style="list-style-type: decimal">
 <li><strong>Identify Cisco Express Forwarding concepts</strong></li>
