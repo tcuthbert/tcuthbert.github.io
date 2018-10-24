@@ -28,7 +28,7 @@
 
 <meta itemprop="datePublished" content="2018-10-24T20:08:20&#43;08:00" />
 <meta itemprop="dateModified" content="2018-10-24T20:08:20&#43;08:00" />
-<meta itemprop="wordCount" content="1694">
+<meta itemprop="wordCount" content="1691">
 
 
 
@@ -168,8 +168,6 @@ th {
     <h1 class="title"> Managing Multi Cloud Services With Juju </h1>
     <div class="content"> 
 
-<p><img src="mojo-brand.png" alt="mojo-brand" /></p>
-
 <p>Managing a service with deployments in multi-cloud environments can be a challenge in terms of troubleshooting and scalability due to the complexity of dealing with different public cloud providers. An effective way to manage services deployed cross-cloud is to use tools that allow you to define your service once and deploy anywhere: in the cloud, on bare metal, or locally inside containers. In this blog post I am going to describe how the Canonical SRE team has achieved this, the tools that we use and the way we apply them to manage the Ubuntu Archive Mirror service.</p>
 
 <h1 id="historical-archive-mirror-setup">Historical Archive Mirror Setup</h1>
@@ -178,8 +176,9 @@ th {
 
 <p>It’s no secret that Ubuntu is a popular OS for running applications in the cloud. It was clear from the beginning that the increased adoption of Ubuntu in the cloud would cause a significant amount of stress on the master Ubuntu Archive Mirror service due to an increased rate of requests from Ubuntu instances running in public clouds. This was not a new problem for us, the Ubuntu Archive Mirror Network was originally conceived to protect the master Ubuntu Archives from getting over saturated with requests. The network architecture is a globally distributed system of web servers and caches that are operated by the community. The goal of this network is to improve response times for community users by directing traffic destined for the master Ubuntu Archive repositories to repositories geographically closer to the request’s origin. Without this distributed cache the millions of apt requests we receive every day would cause a denial of service to the master repository servers. Ubuntu updates would then be significantly degraded, which is unacceptable for any system running production grade services.</p>
 
-<p>The nice thing about the Ubuntu Archive Mirror architecture is how extensible it is. Within each cloud region we have a deployment of the Ubuntu Archive Mirror service. Each regional deployment keeps in sync with the master repositories. When an Ubuntu instance is started in the cloud its apt sources are configured to point to the deployment servicing the region of which the instance is currently running. We apply this pattern to every public and private cloud we manage. This includes AWS, GCE, Azure and OpenStack.
-Identifying the Challenges</p>
+<p>The nice thing about the Ubuntu Archive Mirror architecture is how extensible it is. Within each cloud region we have a deployment of the Ubuntu Archive Mirror service. Each regional deployment keeps in sync with the master repositories. When an Ubuntu instance is started in the cloud its apt sources are configured to point to the deployment servicing the region of which the instance is currently running. We apply this pattern to every public and private cloud we manage. This includes AWS, GCE, Azure and OpenStack.</p>
+
+<h1 id="identifying-the-challenges">Identifying the Challenges</h1>
 
 <p>After understanding our architectural requirements, the next step was to figure out how to manage each individual Ubuntu Archive deployment. A non exhaustive list of challenges we needed to address were:</p>
 
@@ -190,16 +189,18 @@ Identifying the Challenges</p>
 <li>How do we respond to incidents when things go wrong with any of our environments and how do we ensure each environment is isolated from each other to avoid unnecessary outages?</li>
 </ul>
 
-<p>Our engineers can’t get bogged down with the semantics of each cloud. The best approach is to have a uniform interface that applies to any platform. This saves engineering time by making our playbooks more succinct and easier to digest, there is less room for error when there are minimal commands to run, a consistent UX reduces mean time to recovery as an engineer can be confident that the same troubleshooting methodology can be applied no matter which environment they are in, finally, environment specifications stored in version control allow us to keep track of changes, and easily test and rollback revisions that do not work.
-The Solution</p>
+<p>Our engineers can’t get bogged down with the semantics of each cloud. The best approach is to have a uniform interface that applies to any platform. This saves engineering time by making our playbooks more succinct and easier to digest, there is less room for error when there are minimal commands to run, a consistent UX reduces mean time to recovery as an engineer can be confident that the same troubleshooting methodology can be applied no matter which environment they are in, finally, environment specifications stored in version control allow us to keep track of changes, and easily test and rollback revisions that do not work.</p>
+
+<h1 id="the-solution">The Solution</h1>
 
 <p>Our Ubuntu Archive mirror services are modeled with Mojo which orchestrates deployments with Juju. “Automate once, deploy anywhere” is an approach we have taken in developing our environment automation solution. We define what our environments look like once and have the tooling take care of the boring details.
 Juju</p>
 
-<p>Juju is the component which drives each deployment. It is responsible for talking to the cloud APIs, installation and configuration of each application, provisioning cloud services, such as security, networking, storage, and user access control. Juju enables us to deploy and scale services quickly and efficiently to a variety of providers: public clouds, physical servers, OpenStack, and local containers. Juju is responsible for provisioning instances and installing the application (a charm in Juju context) onto them. It is also responsible for managing services, such as ensuring ACLs are configured, configuring advanced networking, and allocating storage.
-Deployment Control</p>
+<p>Juju is the component which drives each deployment. It is responsible for talking to the cloud APIs, installation and configuration of each application, provisioning cloud services, such as security, networking, storage, and user access control. Juju enables us to deploy and scale services quickly and efficiently to a variety of providers: public clouds, physical servers, OpenStack, and local containers. Juju is responsible for provisioning instances and installing the application (a charm in Juju context) onto them. It is also responsible for managing services, such as ensuring ACLs are configured, configuring advanced networking, and allocating storage.</p>
 
-<h1 id="ubuntu-archive-mirror">Ubuntu Archive Mirror</h1>
+<h1 id="deployment-control">Deployment Control</h1>
+
+<p><img src="mojo-brand.png" alt="mojo-brand" /></p>
 
 <p>All our Archive Mirror deployments are centrally managed. We have a deployment host from which all SREs connect to environments we manage. An internally developed tool allows SREs to search for the environment they need to connect to (such as &ldquo;Azure Archive Mirror for Japan East region&rdquo;), and then configures for them everything they need to connect to that environment in a consistent way.</p>
 
@@ -323,8 +324,9 @@ bionic/
 <li>Jenkins monitors the progress and provides feedback on any errors.</li>
 </ul>
 
-<p>This process gives us assurance that the changes we have made are deployable albeit only within an Openstack context.
-Closing Comments</p>
+<p>This process gives us assurance that the changes we have made are deployable albeit only within an Openstack context.</p>
+
+<h1 id="closing-comments">Closing Comments</h1>
 
 <p>So far our current solution has worked well. The time taken for an SRE to redeploy an Archive Mirror environment is under an hour. If an environment is sick and we start receiving alerts we can be confident that if all else fails, and troubleshooting is taking too long, we can destroy the environment and redeploy a fresh baseline. The process is as simple as failing over DNS, recreating the Juju model, running Mojo, and configuring DNS and monitoring.</p>
  </div>
