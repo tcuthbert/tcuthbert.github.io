@@ -18,7 +18,7 @@
       <pubDate>Wed, 24 Oct 2018 20:08:20 +0800</pubDate>
       
       <guid>/post/managing-multi-cloud-services-with-juju/</guid>
-      <description>Introduction Managing a service with deployments in multi-cloud environments can be a challenge in terms of troubleshooting and scalability due to the complexity of dealing with different public cloud providers. An effective way to manage services deployed cross-cloud is to use tools that allow you to define your service once and deploy anywhere: in the cloud, on bare metal, or locally inside containers. In this blog post I am going to describe how the Canonical SRE team has achieved this, the tools that we use and the way we apply them to manage the Ubuntu Archive Mirror service.</description>
+      <description>Managing a service with deployments in multi-cloud environments can be a challenge in terms of troubleshooting and scalability due to the complexity of dealing with different public cloud providers. An effective way to manage services deployed cross-cloud is to use tools that allow you to define your service once and deploy anywhere: in the cloud, on bare metal, or locally inside containers. In this blog post I am going to describe how the Canonical SRE team has achieved this, the tools that we use and the way we apply them to manage the Ubuntu Archive Mirror service.</description>
     </item>
     
   </channel>
